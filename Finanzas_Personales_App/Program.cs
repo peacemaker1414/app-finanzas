@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using Finanzas_Personales_App.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,57 +10,58 @@ builder.Services.AddControllersWithViews();
 
 var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
 builder.Services.AddDbContext<FinanzasDbContext>(options =>
-options.UseNpgsql(connectionString));
+    options.UseNpgsql(connectionString));
 
 builder.Services.AddSession();
 
-/*
+// Configuración explícita para Render
 builder.WebHost.ConfigureKestrel(serverOptions => {
-    serverOptions.ListenAnyIP(7005); // HTTPS
-});*/
+    serverOptions.ListenAnyIP(5000); // HTTP
+});
 
+// Configuración de autenticación CORREGIDA
 builder.Services.AddAuthentication(options =>
 {
-	options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-	options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
 })
-.AddCookie()
+.AddCookie(options => {
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+})
 .AddGoogle(options =>
 {
     options.ClientId = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID");
     options.ClientSecret = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_SECRET");
+    options.CallbackPath = "/signin-google";
+    options.SaveTokens = true;
 });
-
-
-
 
 var app = builder.Build();
 
+// Solo redirección HTTPS si no es Render
 if (!app.Environment.IsEnvironment("Render"))
 {
     app.UseHttpsRedirection();
 }
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Home/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-	app.UseHsts();
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
 
-
-
-app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
-
 app.UseSession();
-
-
 app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Run();
 
 app.UseAuthorization();
 
