@@ -31,10 +31,14 @@ builder.Services.AddAuthentication(options =>
     options.AccessDeniedPath = "/Account/AccessDenied";
 })
 .AddGoogle(options => {
-    options.ClientId = builder.Configuration["GOOGLE_CLIENT_ID"]; 
+    options.ClientId = builder.Configuration["GOOGLE_CLIENT_ID"];
     options.ClientSecret = builder.Configuration["GOOGLE_CLIENT_SECRET"];
     options.CallbackPath = "/signin-google";
-    options.AuthorizationEndpoint += "?prompt=consent&access_type=offline";
+
+    // Parámetros críticos para evitar 400
+    options.AuthorizationEndpoint = "https://accounts.google.com/o/oauth2/v2/auth?response_type=code";
+    options.TokenEndpoint = "https://oauth2.googleapis.com/token";
+    options.SaveTokens = true;
 });
 
 var app = builder.Build();
