@@ -19,4 +19,4 @@ COPY --from=build /app .
 
 # Expone el puerto que Render usará (variable PORT se inyectará automáticamente)
 ENV ASPNETCORE_URLS=http://*:$PORT
-ENTRYPOINT ["dotnet", "MiProyecto.dll"]
+ENTRYPOINT ["dotnet", "Finanzas_Personales_App.dll"]
