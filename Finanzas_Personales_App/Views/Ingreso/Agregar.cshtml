@@ -1,0 +1,54 @@
+﻿@model Finanzas_Personales_App.Models.IngresoVM
+@{
+	ViewData["Title"] = "Ingreso";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="h1 font-primary">¡Que bueno que cobraste!</h1>
+<h4 class="h4 font-secondary">Agregá tu ingreso acá</h4>
+@if (TempData["MensajeSuccess"] != null)
+{
+	<div class="row">
+		<p class="alert alert-success">
+			@TempData["MensajeSuccess"]
+		</p>
+	</div>
+}
+
+
+<div class="row">
+	<div class="col-sm-4">
+		<form asp-action="Agregar" asp-controller="Ingreso" method="post" enctype="multipart/form-data">
+			<div asp-validation-summary="All" class="text-danger"></div>
+			<input type="hidden" asp-for="Ingreso.IdIngreso" />
+			
+		
+
+			<label asp-for="@Model.Ingreso.IdCatIngreso" class="control-label font-secondary">¿Qué categoría es el ingreso?</label>
+				<select asp-for="@Model.Ingreso.IdCatIngreso" class="form-control" asp-items="@Model.Categorias_Ingresos">
+					<option>---Seleccionar Categoría ---</option>
+                </select>
+
+
+			<div class="mb-2">
+				<label class="form-label font-secondary" asp-for="@Model.Ingreso.Fecha">Fecha del Ingreso</label>
+				<input type="date" asp-for="@Model.Ingreso.Fecha" asp-format="{0:dd/MM/yyyy}" class="form-control" />
+                <span asp-validation-for="@Model.Ingreso.Fecha"  class="text-danger"></span>
+            </div>
+
+			<div class="mb-2">
+				<label class="form-label font-secondary" asp-for="@Model.Ingreso.Monto">Monto del Ingreso</label>
+				<input type="number" asp-for="@Model.Ingreso.Monto" class="form-control" />
+				<span asp-validation-for="@Model.Ingreso.Monto" class="text-danger"></span>
+			</div>
+
+
+			<div class="mb-2">
+				<button class="btn background-secondary" type="submit">Agregar ingreso</button>
+				<a class="btn btn-info" asp-action="Index" asp-controller="Home">Inicio</a>
+			</div>
+
+
+		</form>
+	</div>
+</div>

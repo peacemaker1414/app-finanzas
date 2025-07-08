@@ -1,0 +1,25 @@
+﻿@model Finanzas_Personales_App.Models.OperacionesVM
+  
+@{
+}
+
+<h1 class="h1 font-secondary">Listado de operaciones</h1>
+
+<div class="container bg-white">
+    <table class="table table-striped">
+        <tr>
+            <th>Fecha</th>
+            <th>Tipo</th>
+            <th>Monto</th>
+
+        </tr>
+        @foreach (var item in Model._listaIngresos)
+        {
+            <tr>
+                <td>@item.Fecha</td>
+                <td>@item.IdCatIngresoNavigation.CategoriaIngreso</td>
+                <td>$ @item.Monto</td>
+            </tr>
+        }
+    </table>
+</div>
