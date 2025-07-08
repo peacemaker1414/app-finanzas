@@ -30,12 +30,11 @@ builder.Services.AddAuthentication(options =>
     options.LoginPath = "/Account/Login";
     options.AccessDeniedPath = "/Account/AccessDenied";
 })
-.AddGoogle(options =>
-{
-    options.ClientId = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID");
-    options.ClientSecret = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_SECRET");
-    options.CallbackPath = "/signin-google";
-    options.SaveTokens = true;
+.AddGoogle(options => {
+    options.ClientId = "391986582667-6141....apps.googleusercontent.com"; // Usa tu ID completo
+    options.ClientSecret = builder.Configuration["GOOGLE_CLIENT_SECRET"];
+    options.CallbackPath = "/signin-google"; // ¡Idéntico a Google Cloud!
+    options.AccessType = "offline"; // Opcional para refrescar tokens
 });
 
 var app = builder.Build();
