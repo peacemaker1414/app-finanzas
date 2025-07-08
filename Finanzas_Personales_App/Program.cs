@@ -31,7 +31,7 @@ builder.Services.AddAuthentication(options =>
     options.AccessDeniedPath = "/Account/AccessDenied";
 })
 .AddGoogle(options => {
-    options.ClientId = "391986582667-6141....apps.googleusercontent.com"; // Usa tu ID completo
+    options.ClientId = "GOOGLE_CLIENT_ID"; // Usa tu ID completo
     options.ClientSecret = builder.Configuration["GOOGLE_CLIENT_SECRET"];
     options.CallbackPath = "/signin-google"; // ¡Idéntico a Google Cloud!
     options.AccessType = "offline"; // Opcional para refrescar tokens
