@@ -1,6 +1,7 @@
 using Finanzas_Personales_App.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,27 +21,28 @@ builder.WebHost.ConfigureKestrel(serverOptions => {
     serverOptions.ListenAnyIP(Int32.Parse(Environment.GetEnvironmentVariable("PORT") ?? "5000"));
 });
 
-// Configuración de autenticación CORREGIDA
-builder.Services.AddAuthentication(options =>
-{
+builder.Services.AddAuthentication(options => {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
 })
-.AddCookie(options => {
-    options.LoginPath = "/Account/Login";
-    options.AccessDeniedPath = "/Account/AccessDenied";
-})
+.AddCookie()
 .AddGoogle(options => {
     options.ClientId = builder.Configuration["GOOGLE_CLIENT_ID"];
     options.ClientSecret = builder.Configuration["GOOGLE_CLIENT_SECRET"];
     options.CallbackPath = "/signin-google";
 
-    // ¡SOLUCIÓN CLAVE! Elimina cualquier parámetro duplicado:
-    options.AuthorizationEndpoint = "https://accounts.google.com/o/oauth2/v2/auth";
-    options.TokenEndpoint = "https://oauth2.googleapis.com/token";
-
-    // Configuración adicional recomendada
-    options.SaveTokens = true;
+    // ¡Fuerza HTTPS en producción!
+    options.Events = new OAuthEvents
+    {
+        OnRedirectToAuthorizationEndpoint = context => {
+            if (!context.HttpContext.Request.Host.Value.Contains("localhost"))
+            {
+                context.RedirectUri = context.RedirectUri.Replace("http://", "https://");
+            }
+            context.Response.Redirect(context.RedirectUri);
+            return Task.CompletedTask;
+        }
+    };
 });
 
 var app = builder.Build();
