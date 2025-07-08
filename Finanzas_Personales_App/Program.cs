@@ -35,9 +35,11 @@ builder.Services.AddAuthentication(options =>
     options.ClientSecret = builder.Configuration["GOOGLE_CLIENT_SECRET"];
     options.CallbackPath = "/signin-google";
 
-    // Parámetros críticos para evitar 400
-    options.AuthorizationEndpoint = "https://accounts.google.com/o/oauth2/v2/auth?response_type=code";
+    // ¡SOLUCIÓN CLAVE! Elimina cualquier parámetro duplicado:
+    options.AuthorizationEndpoint = "https://accounts.google.com/o/oauth2/v2/auth";
     options.TokenEndpoint = "https://oauth2.googleapis.com/token";
+
+    // Configuración adicional recomendada
     options.SaveTokens = true;
 });
 
