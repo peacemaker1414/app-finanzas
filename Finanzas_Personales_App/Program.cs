@@ -14,9 +14,10 @@ builder.Services.AddDbContext<FinanzasDbContext>(options =>
 
 builder.Services.AddSession();
 
-// Configuración explícita para Render
+
+// Configuración específica para Render
 builder.WebHost.ConfigureKestrel(serverOptions => {
-    serverOptions.ListenAnyIP(5000); // HTTP
+    serverOptions.ListenAnyIP(Int32.Parse(Environment.GetEnvironmentVariable("PORT") ?? "5000"));
 });
 
 // Configuración de autenticación CORREGIDA
