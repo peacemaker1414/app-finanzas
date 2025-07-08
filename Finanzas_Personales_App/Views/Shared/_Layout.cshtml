@@ -10,12 +10,12 @@
 </head>
 <body class="background-body-layout">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm background-primary border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-dark navbar-expand-sm navbar-toggleable-sm background-primary border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">Finanzas Personales</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon text-white"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
@@ -32,22 +32,26 @@
                     <ul class="navbar-nav ms-auto">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item  font-secondary">
+                            <li class="nav-item p-2 font-secondary">
                                 <a class="btn btn-success" asp-area="" asp-controller="Ingreso" asp-action="Agregar">Agregar Ingreso</a>
                             </li>
 
-                            <li class="nav-item  font-secondary">
+                            <li class="nav-item p-2 font-secondary">
+                                <a class="btn btn-info" asp-area="" asp-controller="Egreso" asp-action="Agregar">Agregar Egreso</a>
+                            </li>
+
+                            <li class="nav-item p-2  font-secondary">
                                 <a class="btn btn-success" asp-area="" asp-controller="Operaciones" asp-action="Resumen">Ver operaciones</a>
                             </li>
 
-                            <li>
-                                <a href="/Account/Logout" class="btn btn-danger">Cerrar sesión</a>
+                            <li class="nav-item p-2">
+                                <a href="/Account/Logout" class="btn btn-danger text-white">Cerrar sesión</a>
                             </li>
                         }
                         else
                         {
                             <li class="align-content-end">
-                                <a href="/Account/Login" class="btn btn-success">Iniciar sesión con Google</a>
+                                <a href="/Account/Login" class="btn btn-success text-white">Iniciar sesión con Google</a>
                             </li>
 
                         }
@@ -59,7 +63,7 @@
     <div class="container">
         @if (User.Identity.IsAuthenticated && @ViewData["Title"] != "Index")
         {
-            <h5 class="h5">Hola, <span class="font-secondary">@User.Identity.Name</span></h5>
+            <h5 class="h5 font-primary">¡Hola <span class="font-secondary">@User.Identity.Name</span>!</h5>
         }
         
         <main role="main" class="pb-3">

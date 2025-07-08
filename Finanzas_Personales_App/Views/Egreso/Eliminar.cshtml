@@ -1,0 +1,52 @@
+﻿@model Finanzas_Personales_App.Models.EgresoVM
+@{
+	ViewData["Title"] = "Egreso";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="h1 font-primary">Gastar es invertir en uno mismo</h1>
+<h4 class="h4 font-secondary">Agregá tu egreso acá</h4>
+@if (TempData["MensajeSuccess"] != null)
+{
+	<div class="row">
+		<p class="alert alert-success">
+			@TempData["MensajeSuccess"]
+		</p>
+	</div>
+}
+
+
+<div class="row">
+	<div class="col-sm-4">
+		<form asp-action="Eliminar" asp-controller="Egreso" method="post" enctype="multipart/form-data">
+			<div asp-validation-summary="All" class="text-danger"></div>
+			<input type="hidden" asp-for="Egreso.IdEgreso" />
+
+
+
+			<label asp-for="@Model.Egreso.IdCatEgreso" class="control-label font-secondary">¿Qué tipo es el Egreso?</label>
+			<input type="text" asp-for="@Model.Egreso.IdCatEgresoNavigation.SubcategoriaEgreso" class="form-control" readonly>
+			
+
+
+			<div class="mb-2">
+				<label class="form-label font-secondary" asp-for="@Model.Egreso.Fecha">Fecha del Egreso</label>
+				<input type="text" asp-for="@Model.Egreso.Fecha" asp-format="{0:dd/MM/yyyy}" class="form-control" readonly />
+				<span asp-validation-for="@Model.Egreso.Fecha" class="text-danger"></span>
+			</div>
+
+			<div class="mb-2">
+				<label class="form-label font-secondary" asp-for="@Model.Egreso.Monto">Monto del Egreso</label>
+				<input type="number" asp-for="@Model.Egreso.Monto" class="form-control" readonly />
+				<span asp-validation-for="@Model.Egreso.Monto" class="text-danger"></span>
+			</div>
+
+
+			<div class="mb-2">
+				<button class="btn btn-danger" type="submit">Eliminar Egreso</button>
+				<a class="btn btn-info" asp-action="Index" asp-controller="Home">Inicio</a>
+			</div>
+
+		</form>
+	</div>
+</div>

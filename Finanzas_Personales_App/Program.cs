@@ -18,7 +18,7 @@ builder.Services.AddSession();
 
 // Configuración específica para Render
 builder.WebHost.ConfigureKestrel(serverOptions => {
-    serverOptions.ListenAnyIP(Int32.Parse(Environment.GetEnvironmentVariable("PORT") ?? "5000"));
+    serverOptions.ListenAnyIP(Int32.Parse(Environment.GetEnvironmentVariable("PORT") ?? "7005"));
 });
 
 builder.Services.AddAuthentication(options => {
@@ -35,10 +35,12 @@ builder.Services.AddAuthentication(options => {
     options.Events = new OAuthEvents
     {
         OnRedirectToAuthorizationEndpoint = context => {
+            
             if (!context.HttpContext.Request.Host.Value.Contains("localhost"))
             {
                 context.RedirectUri = context.RedirectUri.Replace("http://", "https://");
             }
+            
             context.Response.Redirect(context.RedirectUri);
             return Task.CompletedTask;
         }

@@ -5,21 +5,61 @@
 
 <h1 class="h1 font-secondary">Listado de operaciones</h1>
 
-<div class="container bg-white">
-    <table class="table table-striped">
-        <tr>
-            <th>Fecha</th>
-            <th>Tipo</th>
-            <th>Monto</th>
-
-        </tr>
-        @foreach (var item in Model._listaIngresos)
-        {
+<div class="container bg-white rounded-3 shadow-sm p-0 overflow-hidden">
+    <table class="table table-hover">
+        <thead class="table-light">
             <tr>
-                <td>@item.Fecha</td>
-                <td>@item.IdCatIngresoNavigation.CategoriaIngreso</td>
-                <td>$ @item.Monto</td>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Categoría</th>
+                <th class="text-end">Monto</th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var op in Model.OperacionesCombinadas)
+            {
+                <tr>
+                    <td>@op.Fecha.ToString("dd/MM/yyyy")</td>
+                    <td>@op.TipoOperacion</td>
+                    <td>@op.Categoria</td>
+                    <td class="text-end @op.ClaseCSS">@op.SignoMonto @String.Format("{0:C}", @op.Monto)</td>
+                    <td>
+                        <a class="btn btn-warning" asp-action="Modificar" asp-controller="Operaciones"
+                           asp-route-IdOperacion="@op.IdOperacion" asp-route-TipoOperacion="@op.TipoOperacion">
+                            Modificar
+                        </a>
+                        <a class="btn btn-danger" asp-action="Eliminar" asp-controller="Operaciones"
+                           asp-route-IdOperacion="@op.IdOperacion" asp-route-TipoOperacion="@op.TipoOperacion">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot class="table-group-divider">
+            <tr>
+                <th colspan="3">Total Ingresos</th>
+                <td class="text-end text-success">@String.Format("{0:C}",@Model.TotalIngresos)</td>
+            </tr>
+            <tr>
+                <th colspan="3">Total Egresos</th>
+                <td class="text-end text-danger">@String.Format("{0:C}",-@Model.TotalEgresos)</td>
+            </tr>
+            <tr class="table-active">
+                <th colspan="3">Balance Total</th>
+                <td class="text-end fw-bold @(Model.BalanceTotal >= 0 ? "text-success" : "text-danger")">
+                    @String.Format("{0:C}",@Model.BalanceTotal)
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </div>
+
+<style>
+    /* Personalización adicional */
+    .table {
+        --bs-table-striped-bg: rgba(173, 216, 230, 0.1); 
+        --bs-table-hover-bg: rgba(100, 149, 237, 0.15); 
+    }
+
+</style>

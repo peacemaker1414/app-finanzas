@@ -28,7 +28,7 @@
     --bs-gray-700: #495057;
     --bs-gray-800: #343a40;
     --bs-gray-900: #212529;
-    --bs-primary: #0d6efd;
+    --bs-primary: #519872;
     --bs-secondary: #6c757d;
     --bs-success: #198754;
     --bs-info: #0dcaf0;
@@ -4017,13 +4017,14 @@ textarea.form-control-lg {
 }
 
 .navbar-toggler {
-  padding: 0.25rem 0.75rem;
-  font-size: 1.25rem;
-  line-height: 1;
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
-  transition: box-shadow 0.15s ease-in-out;
+    padding: 0.25rem 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: #1f2e28;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    transition: box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
   .navbar-toggler {
@@ -4040,13 +4041,14 @@ textarea.form-control-lg {
 }
 
 .navbar-toggler-icon {
-  display: inline-block;
-  width: 1.5em;
-  height: 1.5em;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    color: rgb(59, 82, 73);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
 }
 
 .navbar-nav-scroll {
@@ -4395,7 +4397,8 @@ textarea.form-control-lg {
   border-color: rgba(0, 0, 0, 0.1);
 }
 .navbar-light .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
 }
 .navbar-light .navbar-text {
   color: rgba(0, 0, 0, 0.55);
@@ -4430,7 +4433,10 @@ textarea.form-control-lg {
   border-color: rgba(255, 255, 255, 0.1);
 }
 .navbar-dark .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+}
+}
 }
 .navbar-dark .navbar-text {
   color: rgba(255, 255, 255, 0.55);
