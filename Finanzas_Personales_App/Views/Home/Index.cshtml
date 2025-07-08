@@ -2,66 +2,55 @@
     ViewData["Title"] = "Index";
 }
 
-<section class="py-5 px-4">
+<section class="py-3 py-md-5 px-3 px-md-4">
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-5">
+        <!-- Header/Navbar -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 mb-md-5 gap-3">
             <div class="d-flex align-items-center gap-2">
                 <div class="bg-success rounded-circle" style="width: 20px; height: 20px;"></div>
                 <h5 class="fw-bold m-0 text-white">Finanzas<span class="text-success">Personales</span></h5>
             </div>
-            <div>
-                <a asp-area="" asp-controller="Home" asp-action="Privacy" class="btn btn-outline-light me-2">¿Quiénes somos?</a>
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+                <a asp-area="" asp-controller="Home" asp-action="Privacy" class="btn btn-outline-light btn-sm">¿Quiénes somos?</a>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <a class="btn btn-success" asp-area="" asp-controller="Ingreso" asp-action="Agregar">Agregar Ingreso</a>
+                    <a class="btn btn-success btn-sm" asp-area="" asp-controller="Ingreso" asp-action="Agregar">Agregar Ingreso</a>
                 }
                 else
                 {
-                    <a href="/Account/Login" class="btn btn-success">Iniciar sesión con Google</a>
+                    <a href="/Account/Login" class="btn btn-success btn-sm">Iniciar sesión con Google</a>
                 }
-
-                
             </div>
         </div>
 
+        <!-- Main Content -->
         <div class="row align-items-center">
-            <!-- Texto -->
-            <div class="col-md-6">
-                <h1 class="fw-bold font-primary mb-4">Mejorá drásticamente <span class="font-secondary">tus finanzas</span></h1>
-                <p class="mb-4 text-white">
+            <!-- Text Section -->
+            <div class="col-12 col-md-6 order-2 order-md-1 mt-4 mt-md-0">
+                <h1 class="fw-bold font-primary mb-3 display-5 display-md-4">Mejorá drásticamente <span class="font-secondary">tus finanzas</span></h1>
+                <p class="mb-4 text-white fs-5 fs-md-6">
                     Realizá un seguimiento de tus Ingresos y Egresos, monitoreándolos con un dashboard especialmente diseñado para mejores insights.
                 </p>
-                <!--<div class="d-flex gap-4">
-                    <div><strong>300+</strong><br><small class="text-secondary">Courses</small></div>
-                    <div><strong>50+</strong><br><small class="text-secondary">Expert Mentors</small></div>
-                    <div><strong>1000+</strong><br><small class="text-secondary">Hours of Content</small></div>
-                </div>-->
             </div>
 
-            <!-- Grilla de formas -->
-            <div class="col-md-6 d-flex flex-wrap justify-content-center gap-2 mt-4 mt-md-0">
-
-                <!-- Moneda grande -->
-                <div class="d-flex justify-content-center align-items-center shadow-sm mx-auto my-2"
+            <!-- Graphic Element -->
+            <div class="col-12 col-md-6 order-1 order-md-2 d-flex justify-content-center">
+                <div class="d-flex justify-content-center align-items-center shadow-sm"
                      style="
-                                width: min(25vw, 150px);
-                                height: min(25vw, 150px);
-                                border-radius: 50%;
-                                background-color: #81a78a;
-                                font-size: min(10vw, 48px);
-                                font-weight: bold;
-                                color: white;
-                                transition: transform 0.2s ease-in-out;
-                             "
+                        width: clamp(100px, 25vw, 150px);
+                        height: clamp(100px, 25vw, 150px);
+                        border-radius: 50%;
+                        background-color: #81a78a;
+                        font-size: clamp(2rem, 10vw, 3rem);
+                        font-weight: bold;
+                        color: white;
+                        transition: transform 0.2s ease-in-out;
+                     "
                      onmouseover="this.style.transform='scale(1.05)'"
                      onmouseout="this.style.transform='scale(1)'">
                     $
                 </div>
-
             </div>
-
-
-
         </div>
     </div>
 </section>

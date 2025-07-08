@@ -14,6 +14,11 @@ options.UseNpgsql(connectionString));
 
 builder.Services.AddSession();
 
+/*
+builder.WebHost.ConfigureKestrel(serverOptions => {
+    serverOptions.ListenAnyIP(7005); // HTTPS
+});*/
+
 builder.Services.AddAuthentication(options =>
 {
 	options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -27,7 +32,14 @@ builder.Services.AddAuthentication(options =>
 });
 
 
+
+
 var app = builder.Build();
+
+if (!app.Environment.IsEnvironment("Render"))
+{
+    app.UseHttpsRedirection();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -36,6 +48,8 @@ if (!app.Environment.IsDevelopment())
 	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
 }
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
