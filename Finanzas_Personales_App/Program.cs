@@ -35,12 +35,11 @@ builder.Services.AddAuthentication(options => {
     options.Events = new OAuthEvents
     {
         OnRedirectToAuthorizationEndpoint = context => {
-            
+
             if (!context.HttpContext.Request.Host.Value.Contains("localhost"))
             {
                 context.RedirectUri = context.RedirectUri.Replace("http://", "https://");
             }
-            
             context.Response.Redirect(context.RedirectUri);
             return Task.CompletedTask;
         }

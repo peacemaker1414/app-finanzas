@@ -19,7 +19,7 @@ namespace Finanzas_Personales_App.Controllers
 		public ActionResult Agregar()
         {
             EgresoVM modelEgreso = new EgresoVM();
-            modelEgreso.Categorias_Egresos = _DbContext.LookCategoriasEgresos.Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+            modelEgreso.Categorias_Egresos = _DbContext.LookCategoriasEgresos.Distinct().Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
             {
                 Text = categoria.SubcategoriaEgreso,
                 Value = categoria.IdCatEgreso.ToString()
@@ -55,7 +55,7 @@ namespace Finanzas_Personales_App.Controllers
 			TempData["MensajeSuccess"] = $"¡Se cargó correctamente el Egreso!";
 
 			EgresoVM modelEgreso = new EgresoVM();
-			modelEgreso.Categorias_Egresos = _DbContext.LookCategoriasEgresos.Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+			modelEgreso.Categorias_Egresos = _DbContext.LookCategoriasEgresos.Distinct().Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
 			{
 				Text = categoria.CategoriaEgreso,
 				Value = categoria.IdCatEgreso.ToString()
@@ -72,7 +72,7 @@ namespace Finanzas_Personales_App.Controllers
                 modelEgreso.Egreso = _DbContext.Egresos
 				                      .Include(i => i.IdCatEgresoNavigation)
 				                      .FirstOrDefault(e => e.IdEgreso == idEgreso);
-                modelEgreso.Categorias_Egresos = _DbContext.LookCategoriasEgresos.Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+                modelEgreso.Categorias_Egresos = _DbContext.LookCategoriasEgresos.Distinct().Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
                 {
                     Text = categoria.SubcategoriaEgreso,
                     Value = categoria.IdCatEgreso.ToString()
@@ -107,7 +107,7 @@ namespace Finanzas_Personales_App.Controllers
 			TempData["MensajeSuccess"] = $"¡Se modificó correctamente el Egreso!";
 
 			EgresoVM modelEgreso = new EgresoVM();
-			modelEgreso.Categorias_Egresos = _DbContext.LookCategoriasEgresos.Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+			modelEgreso.Categorias_Egresos = _DbContext.LookCategoriasEgresos.Distinct().Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
 			{
 				Text = categoria.CategoriaEgreso,
 				Value = categoria.IdCatEgreso.ToString()
@@ -124,7 +124,7 @@ namespace Finanzas_Personales_App.Controllers
             modelEgreso.Egreso = _DbContext.Egresos
 				                .Include(i => i.IdCatEgresoNavigation)
 				                .FirstOrDefault(e => e.IdEgreso == idEgreso);
-            modelEgreso.Categorias_Egresos = _DbContext.LookCategoriasEgresos.Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+            modelEgreso.Categorias_Egresos = _DbContext.LookCategoriasEgresos.Distinct().Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
             {
                 Text = categoria.SubcategoriaEgreso,
                 Value = categoria.IdCatEgreso.ToString()
@@ -159,7 +159,7 @@ namespace Finanzas_Personales_App.Controllers
             TempData["MensajeSuccess"] = $"¡Se modificó correctamente el Egreso!";
 
             EgresoVM modelEgreso = new EgresoVM();
-            modelEgreso.Categorias_Egresos = _DbContext.LookCategoriasEgresos.Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+            modelEgreso.Categorias_Egresos = _DbContext.LookCategoriasEgresos.Distinct().Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
             {
                 Text = categoria.CategoriaEgreso,
                 Value = categoria.IdCatEgreso.ToString()
@@ -170,61 +170,9 @@ namespace Finanzas_Personales_App.Controllers
 		}
 
 
-        // POST: EgresoController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+       
+      
 
-        // GET: EgresoController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: EgresoController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: EgresoController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: EgresoController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
     }
 }

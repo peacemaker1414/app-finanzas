@@ -18,7 +18,7 @@ namespace Finanzas_Personales_App.Controllers
 		public ActionResult Agregar()
 		{
 			IngresoVM modelIngreso = new IngresoVM();
-			modelIngreso.Categorias_Ingresos = _DbContext.LookCategoriasIngresos.Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+			modelIngreso.Categorias_Ingresos = _DbContext.LookCategoriasIngresos.Distinct().Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
 			{
 				Text = categoria.SubcategoriaIngreso,
 				Value = categoria.IdCatIngreso.ToString()
@@ -52,7 +52,7 @@ namespace Finanzas_Personales_App.Controllers
 			TempData["MensajeSuccess"] = $"¡Se cargó correctamente el ingreso!";
 
 			IngresoVM modelIngreso = new IngresoVM();
-			modelIngreso.Categorias_Ingresos = _DbContext.LookCategoriasIngresos.Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+			modelIngreso.Categorias_Ingresos = _DbContext.LookCategoriasIngresos.Distinct().Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
 			{
 				Text = categoria.SubcategoriaIngreso,
 				Value = categoria.IdCatIngreso.ToString()
@@ -69,7 +69,7 @@ namespace Finanzas_Personales_App.Controllers
 				modelIngreso.Ingreso = _DbContext.Ingresos
 										.Include(i => i.IdCatIngresoNavigation)
 										.FirstOrDefault(i => i.IdIngreso == idIngreso);
-				modelIngreso.Categorias_Ingresos = _DbContext.LookCategoriasIngresos.Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+				modelIngreso.Categorias_Ingresos = _DbContext.LookCategoriasIngresos.Distinct().Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
 				{
 					Text = categoria.SubcategoriaIngreso,
 					Value = categoria.IdCatIngreso.ToString()
@@ -102,7 +102,7 @@ namespace Finanzas_Personales_App.Controllers
 			TempData["MensajeSuccess"] = $"¡Se modificó correctamente el ingreso!";
 
 			IngresoVM modelIngreso = new IngresoVM();
-			modelIngreso.Categorias_Ingresos = _DbContext.LookCategoriasIngresos.Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+			modelIngreso.Categorias_Ingresos = _DbContext.LookCategoriasIngresos.Distinct().Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
 			{
 				Text = categoria.SubcategoriaIngreso,
 				Value = categoria.IdCatIngreso.ToString()
@@ -119,7 +119,7 @@ namespace Finanzas_Personales_App.Controllers
             modelIngreso.Ingreso = _DbContext.Ingresos
 									.Include(i => i.IdCatIngresoNavigation)					
 									.FirstOrDefault(i => i.IdIngreso == idIngreso);
-            modelIngreso.Categorias_Ingresos = _DbContext.LookCategoriasIngresos.Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+            modelIngreso.Categorias_Ingresos = _DbContext.LookCategoriasIngresos.Distinct().Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
             {
                 Text = categoria.SubcategoriaIngreso,
                 Value = categoria.IdCatIngreso.ToString()
@@ -152,7 +152,7 @@ namespace Finanzas_Personales_App.Controllers
             TempData["MensajeSuccess"] = $"¡Se modificó correctamente el ingreso!";
 
             IngresoVM modelIngreso = new IngresoVM();
-            modelIngreso.Categorias_Ingresos = _DbContext.LookCategoriasIngresos.Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+            modelIngreso.Categorias_Ingresos = _DbContext.LookCategoriasIngresos.Distinct().Select(categoria => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
             {
                 Text = categoria.SubcategoriaIngreso,
                 Value = categoria.IdCatIngreso.ToString()
